@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: #0a0d0a;
+  color: #c8f0d4;
+  font-family: 'JetBrains Mono', monospace;
+  min-height: 100vh;
+  width: 100%;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+::selection {
+  background: #39ff8c;
+  color: #0a0d0a;
+}
+
+a {
+  color: #39ff8c;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #8bffb0;
+}
+
+button {
+  font-family: 'JetBrains Mono', monospace;
+}
