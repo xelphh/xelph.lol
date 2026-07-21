@@ -3,15 +3,10 @@ title: LibreDiscord with Dave implemented Setup Guide
 date: 2024-01-20
 excerpt: Installation and setup process for LibreDiscord on Windows with MSYS2 and Linux distributions
 author: Xelph
----
-
-# LibreDiscord with Dave implemented Setup Guide
-
-This guide covers the installation and setup process for LibreDiscord on Windows with MSYS2 and Linux distributions.
 
 ---
-
 ## Prerequisites: libdave Installation
+
 
 LibreDiscord requires the `libdave` library for Discord protocol support. You can either use the prebuilt release or build it from source.
 

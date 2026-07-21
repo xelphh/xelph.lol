@@ -7,6 +7,19 @@ import MarkdownIt from 'markdown-it'
 
 const md = new MarkdownIt()
 
+// Strip a leading "# Title" line from the markdown body when it duplicates
+// the page's own title heading, so the title isn't shown twice.
+function stripDuplicateTitle(content, title) {
+  if (!content || !title) return content
+  const lines = content.replace(/^\s+/, '').split('\n')
+  const first = (lines[0] || '').trim()
+  const heading = first.replace(/^#+\s*/, '').trim()
+  if (first.startsWith('#') && heading.toLowerCase() === title.trim().toLowerCase()) {
+    return lines.slice(1).join('\n').replace(/^\s+/, '')
+  }
+  return content
+}
+
 export default function GuidePage({ params }) {
   const [guide, setGuide] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -70,9 +83,11 @@ export default function GuidePage({ params }) {
             {guide.author && <span className={styles.author}>by {guide.author}</span>}
           </div>
 
+          {guide.excerpt && <p className={styles.excerpt}>{guide.excerpt}</p>}
+
           <div
             className={styles.markdown}
-            dangerouslySetInnerHTML={{ __html: md.render(guide.content) }}
+            dangerouslySetInnerHTML={{ __html: md.render(stripDuplicateTitle(guide.content, guide.title)) }}
           />
         </div>
       </div>
