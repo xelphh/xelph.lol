@@ -83,9 +83,11 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
           <h1 className={styles.title1}>
             Xelph<span className={styles.blink}>_</span>
           </h1>
-          <p className={styles.bio}>A intellectual geek in era of LLMs.
-Routine:
-Code , Chill, Eat, Sleep.</p>
+          <p className={styles.bio}>
+            A intellectual geek in era of LLMs.<br />
+            Routine:<br />
+            Code , Chill, Eat, Sleep.
+          </p>
         </div>
       </div>
 
