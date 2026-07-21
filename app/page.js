@@ -83,11 +83,9 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
           <h1 className={styles.title1}>
             Xelph<span className={styles.blink}>_</span>
           </h1>
-          <p className={styles.bio}>
-            A intellectual geek in era of LLMs.
-           Rutine:
-           Code , Chill, Eat, Sleep.
-          </p>
+          <p className={styles.bio}>A intellectual geek in era of LLMs.
+Routine:
+Code , Chill, Eat, Sleep.</p>
         </div>
       </div>
 
@@ -235,7 +233,7 @@ function GuidesSection() {
     return (
       <div>
         <div className={styles.prompt}>xelph@dev:~$ ls guides/ --writing</div>
-        <div className={styles.empty}>No Guides available currently <span className={styles.blink}>_</span></div>
+        <div className={styles.empty}>Nothing published yet <span className={styles.blink}>_</span></div>
       </div>
     )
   }
