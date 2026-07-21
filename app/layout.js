@@ -1,7 +1,7 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Xelph - Developer',
+  title: 'Xelph - Develop',
   description: 'Xelph portfolio - programmer, maker, writer',
 }
 
