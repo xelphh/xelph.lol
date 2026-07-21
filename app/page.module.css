@@ -125,6 +125,8 @@
   color: #7fae8c;
   line-height: 1.7;
   max-width: 60ch;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .section {
