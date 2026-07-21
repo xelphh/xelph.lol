@@ -235,7 +235,7 @@ function GuidesSection() {
     return (
       <div>
         <div className={styles.prompt}>xelph@dev:~$ ls guides/ --writing</div>
-        <div className={styles.empty}>nothing published yet <span className={styles.blink}>_</span></div>
+        <div className={styles.empty}>No Guides available currently <span className={styles.blink}>_</span></div>
       </div>
     )
   }
