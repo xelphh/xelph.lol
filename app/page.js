@@ -10,7 +10,7 @@ export default function Home() {
 
   const tabs = ['about', 'skills', 'projects', 'guides']
   const skillTabs = ['languages', 'frameworks']
-  const frameworks = ['minhook', 'opus', 'juce', 'vst', 'mp3', 'flac', 'imgui', 'webview2', 'wasapi/asio/jack/alsa', ']
+  const frameworks = ['minhook', 'opus', 'juce', 'vst', 'mp3', 'flac', 'imgui', 'webview2', 'wasapi/asio/jack/alsa']
 
   return (
     <div className={styles.container}>
