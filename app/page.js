@@ -10,7 +10,7 @@ export default function Home() {
 
   const tabs = ['about', 'skills', 'projects', 'guides']
   const skillTabs = ['languages', 'frameworks']
-  const frameworks = ['minhook', 'opus', 'juce', 'vst', 'mp3', 'flac', 'imgui', 'webview2', 'wasapi/asio/jack/alsa']
+  const frameworks = ['minhook', 'opus', 'juce', 'vst', 'mp3', 'flac', 'imgui', 'webview2', 'wasapi/asio/jack/alsa', ']
 
   return (
     <div className={styles.container}>
@@ -84,7 +84,9 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
             Xelph<span className={styles.blink}>_</span>
           </h1>
           <p className={styles.bio}>
-            Programmer. I build small tools, break bigger ones, and write about both.
+            A intellectual geek in era of LLMs.
+           Rutine:
+           Code , Chill, Eat, Sleep.
           </p>
         </div>
       </div>
@@ -165,6 +167,7 @@ function SkillsSection({ skillTab, setSkillTab, frameworks }) {
             <div><span className={styles.arrow}>▸</span>Python</div>
             <div><span className={styles.arrow}>▸</span>C++ / clang</div>
             <div><span className={styles.arrow}>▸</span>C#</div>
+            <div><span className={styles.arrow}>▸</span>Js&Ts</div>
           </div>
           <div className={styles.comment}># more to come</div>
         </div>
