@@ -1,0 +1,3 @@
+Url - https://github.com/xelphh/GitVisuals.git
+Title - GitVisuals
+Description - A script that generate HTML file for the github repo you want to analize with Human and LLM modes
