@@ -1,0 +1,3 @@
+Url - https://gitlab.com/xelphhcodes/librediscord
+Title - LibreDiscord
+Description - Free/libre take on Discord tooling.

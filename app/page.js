@@ -60,6 +60,7 @@ export default function Home() {
 
 function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
   const [recentGuides, setRecentGuides] = useState([])
+  const [topProject, setTopProject] = useState(null)
 
   useEffect(() => {
     const fetchGuides = async () => {
@@ -72,7 +73,18 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
       }
     }
 
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects')
+        const data = await res.json()
+        setTopProject(data[0] || null)
+      } catch (error) {
+        console.error('Failed to fetch projects:', error)
+      }
+    }
+
     fetchGuides()
+    fetchProjects()
   }, [])
 
   return (
@@ -112,13 +124,17 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
             view all →
           </button>
         </div>
-        <a href="https://gitlab.com/xelphhcodes/librediscord" target="_blank" rel="noopener noreferrer" className={styles.projectCard}>
-          <div className={styles.projectTitle}>
-            <span>librediscord</span>
-            <span className={styles.projectUrl}>gitlab.com/xelphhcodes/librediscord →</span>
-          </div>
-          <div className={styles.projectDesc}>Free/libre take on Discord tooling.</div>
-        </a>
+        {topProject ? (
+          <a href={topProject.url} target="_blank" rel="noopener noreferrer" className={styles.projectCard}>
+            <div className={styles.projectTitle}>
+              <span>{topProject.title}</span>
+              <span className={styles.projectUrl}>{topProject.url.replace(/^https?:\/\//, '')} →</span>
+            </div>
+            <div className={styles.projectDesc}>{topProject.description}</div>
+          </a>
+        ) : (
+          <div className={styles.empty}>nothing published yet <span className={styles.blink}>_</span></div>
+        )}
       </div>
 
       <div className={styles.section}>
@@ -188,16 +204,57 @@ function SkillsSection({ skillTab, setSkillTab, frameworks }) {
 }
 
 function ProjectsSection() {
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch('/api/projects')
+        const data = await res.json()
+        setProjects(data)
+      } catch (error) {
+        console.error('Failed to fetch projects:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  if (loading) {
+    return (
+      <div>
+        <div className={styles.prompt}>xelph@dev:~$ ls projects/</div>
+        <div className={styles.empty}>loading<span className={styles.blink}>_</span></div>
+      </div>
+    )
+  }
+
+  if (projects.length === 0) {
+    return (
+      <div>
+        <div className={styles.prompt}>xelph@dev:~$ ls projects/</div>
+        <div className={styles.empty}>nothing published yet <span className={styles.blink}>_</span></div>
+      </div>
+    )
+  }
+
   return (
     <div>
       <div className={styles.prompt}>xelph@dev:~$ ls projects/</div>
-      <a href="https://gitlab.com/xelphhcodes/librediscord" target="_blank" rel="noopener noreferrer" className={styles.projectCard}>
-        <div className={styles.projectTitle}>
-          <span>librediscord</span>
-          <span className={styles.projectUrl}>gitlab.com/xelphhcodes/librediscord →</span>
-        </div>
-        <div className={styles.projectDesc}>Free/libre take on Discord tooling.</div>
-      </a>
+      <div className={styles.projectsList}>
+        {projects.map((project, i) => (
+          <a key={i} href={project.url} target="_blank" rel="noopener noreferrer" className={styles.projectCard}>
+            <div className={styles.projectTitle}>
+              <span>{project.title}</span>
+              <span className={styles.projectUrl}>{project.url.replace(/^https?:\/\//, '')} →</span>
+            </div>
+            <div className={styles.projectDesc}>{project.description}</div>
+          </a>
+        ))}
+      </div>
     </div>
   )
 }
