@@ -215,4 +215,3 @@ use miniaudio instead of Rtaudio cause its more easy and literally a single head
 After successful installation:
 
 Launch LibreDiscord: `make run` (or run the installed binary. (in linux you can simply open but in windows use mingw64 shell and command to run. trust me you wont regret and you can just directly drop the libopus in the main dir to use it instead))
-

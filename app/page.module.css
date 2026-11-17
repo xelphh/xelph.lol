@@ -99,8 +99,8 @@
 .pfp {
   position: relative;
   flex: 0 0 auto;
-  width: 128px;
-  height: 128px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   overflow: hidden;
   background: #0f1a12;

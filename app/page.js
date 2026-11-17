@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from './page.module.css'
 
-const languages = ['Python', 'C++ (clang)', 'C#', 'JavaScript / TypeScript']
+const languages = ['Python', 'C++/C', 'C#', 'JavaScript / TypeScript', 'Java', 'Rust']
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('about')
@@ -22,7 +22,7 @@ export default function Home() {
           <div className={styles.dot} style={{ backgroundColor: '#e2604a' }}></div>
           <div className={styles.dot} style={{ backgroundColor: '#e8c04a' }}></div>
           <div className={styles.dot} style={{ backgroundColor: '#39ff8c' }}></div>
-          <div className={styles.title}>xelph.lol</div>
+
         </div>
 
         {/* Navigation tabs */}
@@ -106,17 +106,18 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
       <div className={styles.about}>
         {pfp && (
           <div className={styles.pfp}>
-            <Image src={pfp} alt="Xelph" fill sizes="128px" priority className={styles.pfpImg} />
+            <Image src={pfp} alt="Xelph" fill sizes="384px" quality={100} priority className={styles.pfpImg} />
           </div>
         )}
         <div>
-          <div className={styles.prompt}>hi, i'm</div>
+          <div className={styles.prompt}></div>
           <h1 className={styles.title1}>
             Xelph<span className={styles.blink}>_</span>
           </h1>
           <p className={styles.bio}>
-            I write C++, Python and C#, and lately a lot of audio stuff.<br />
-            When I'm not coding I'm usually chilling, eating or asleep.
+            An intellectual in the era of LLMs, <br />
+            Rutine: <br />
+            Code, Chill, Eat, Sleep.
           </p>
         </div>
       </div>
@@ -202,7 +203,7 @@ function SkillsSection({ skillTab, setSkillTab, frameworks }) {
               <div key={l}><span className={styles.arrow}>▸</span>{l}</div>
             ))}
           </div>
-          <div className={styles.comment}>that's the list for now</div>
+          <div className={styles.comment}>thats all (for now)</div>
         </div>
       )}
 
