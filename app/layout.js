@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'Xelph - Develop',
-  description: 'Xelph portfolio - programmer, maker, writer',
+  title: 'Xelph',
+  description: 'Xelph — code, projects and a few guides.',
 }
 
 export default function RootLayout({ children }) {

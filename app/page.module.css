@@ -91,9 +91,25 @@
   margin-bottom: 44px;
 }
 
-.about > div {
+.about > div:not(.pfp) {
   flex: 1;
   min-width: 280px;
+}
+
+.pfp {
+  position: relative;
+  flex: 0 0 auto;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #39ff8c;
+  box-shadow: 0 0 18px rgba(57, 255, 140, 0.25);
+  background: #0f1a12;
+}
+
+.pfpImg {
+  object-fit: cover; /* crops any aspect ratio to the circle */
 }
 
 .prompt {
@@ -369,6 +385,11 @@
   .about {
     gap: 16px;
     margin-bottom: 24px;
+  }
+
+  .pfp {
+    width: 96px;
+    height: 96px;
   }
 
   .title1 {

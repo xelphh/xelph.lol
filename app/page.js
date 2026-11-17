@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import styles from './page.module.css'
+
+const languages = ['Python', 'C++ (clang)', 'C#', 'JavaScript / TypeScript']
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState('about')
   const [skillTab, setSkillTab] = useState('languages')
 
   const tabs = ['about', 'skills', 'projects', 'guides']
-  const skillTabs = ['languages', 'frameworks']
-  const frameworks = ['minhook', 'opus', 'juce', 'vst', 'mp3', 'flac', 'imgui', 'webview2','QT5/6', 'wasapi/asio/jack/alsa']
+  const frameworks = ['MinHook', 'Opus', 'JUCE', 'VST', 'MP3', 'FLAC', 'ImGui', 'WebView2', 'Qt 5/6', 'WASAPI / ASIO / JACK / ALSA']
 
   return (
     <div className={styles.container}>
@@ -20,7 +22,7 @@ export default function Home() {
           <div className={styles.dot} style={{ backgroundColor: '#e2604a' }}></div>
           <div className={styles.dot} style={{ backgroundColor: '#e8c04a' }}></div>
           <div className={styles.dot} style={{ backgroundColor: '#39ff8c' }}></div>
-          <div className={styles.title}>xelph@dev — zsh — 92×48</div>
+          <div className={styles.title}>xelph.lol</div>
         </div>
 
         {/* Navigation tabs */}
@@ -31,7 +33,7 @@ export default function Home() {
               onClick={() => setActiveTab(tab)}
               className={`${styles.navBtn} ${activeTab === tab ? styles.active : ''}`}
             >
-              ./{tab}
+              {tab}
             </button>
           ))}
           <div style={{ flex: 1 }} />
@@ -61,6 +63,7 @@ export default function Home() {
 function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
   const [recentGuides, setRecentGuides] = useState([])
   const [topProject, setTopProject] = useState(null)
+  const [pfp, setPfp] = useState(null)
 
   useEffect(() => {
     const fetchGuides = async () => {
@@ -83,45 +86,60 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
       }
     }
 
+    const fetchPfp = async () => {
+      try {
+        const res = await fetch('/api/pfp')
+        const data = await res.json()
+        setPfp(data.src)
+      } catch (error) {
+        console.error('Failed to fetch pfp:', error)
+      }
+    }
+
     fetchGuides()
     fetchProjects()
+    fetchPfp()
   }, [])
 
   return (
     <>
       <div className={styles.about}>
+        {pfp && (
+          <div className={styles.pfp}>
+            <Image src={pfp} alt="Xelph" fill sizes="128px" priority className={styles.pfpImg} />
+          </div>
+        )}
         <div>
-          <div className={styles.prompt}>visitor@web:~$ whoami</div>
+          <div className={styles.prompt}>hi, i'm</div>
           <h1 className={styles.title1}>
             Xelph<span className={styles.blink}>_</span>
           </h1>
           <p className={styles.bio}>
-            An intellectual geek in the era of LLMs.<br />
-            Routine:<br />
-            Code , Chill, Eat, Sleep.
+            I write C++, Python and C#, and lately a lot of audio stuff.<br />
+            When I'm not coding I'm usually chilling, eating or asleep.
           </p>
         </div>
       </div>
 
       <div className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.prompt}>xelph@dev:~$ cat langstack.txt</div>
+          <div className={styles.prompt}>what i use</div>
           <button onClick={() => setActiveTab('skills')} className={styles.viewAllBtn}>
-            view all →
+            see all →
           </button>
         </div>
         <div className={styles.list}>
-          <div><span className={styles.arrow}>▸</span>Python</div>
-          <div><span className={styles.arrow}>▸</span>C++ / clang</div>
-          <div><span className={styles.arrow}>▸</span>C#</div>
+          {languages.slice(0, 3).map(l => (
+            <div key={l}><span className={styles.arrow}>▸</span>{l}</div>
+          ))}
         </div>
       </div>
 
       <div className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.prompt}>xelph@dev:~$ ls projects/ --top</div>
+          <div className={styles.prompt}>latest project</div>
           <button onClick={() => setActiveTab('projects')} className={styles.viewAllBtn}>
-            view all →
+            see all →
           </button>
         </div>
         {topProject ? (
@@ -133,19 +151,19 @@ function AboutSection({ skillTab, setSkillTab, setActiveTab }) {
             <div className={styles.projectDesc}>{topProject.description}</div>
           </a>
         ) : (
-          <div className={styles.empty}>nothing published yet <span className={styles.blink}>_</span></div>
+          <div className={styles.empty}>nothing here yet <span className={styles.blink}>_</span></div>
         )}
       </div>
 
       <div className={styles.section}>
         <div className={styles.sectionHeader}>
-          <div className={styles.prompt}>xelph@dev:~$ ls guides/ --recent</div>
+          <div className={styles.prompt}>recent guides</div>
           <button onClick={() => setActiveTab('guides')} className={styles.viewAllBtn}>
-            view all →
+            see all →
           </button>
         </div>
         {recentGuides.length === 0 ? (
-          <div className={styles.empty}>nothing published yet <span className={styles.blink}>_</span></div>
+          <div className={styles.empty}>nothing here yet <span className={styles.blink}>_</span></div>
         ) : (
           <div className={styles.guidePreviewList}>
             {recentGuides.map((guide) => (
@@ -171,27 +189,26 @@ function SkillsSection({ skillTab, setSkillTab, frameworks }) {
             onClick={() => setSkillTab(tab)}
             className={`${styles.skillTab} ${skillTab === tab ? styles.active : ''}`}
           >
-            ./{tab}
+            {tab}
           </button>
         ))}
       </div>
 
       {skillTab === 'languages' && (
         <div>
-          <div className={styles.prompt}>xelph@dev:~$ cat langstack.txt</div>
+          <div className={styles.prompt}>what i use</div>
           <div className={styles.list}>
-            <div><span className={styles.arrow}>▸</span>Python</div>
-            <div><span className={styles.arrow}>▸</span>C++ / clang</div>
-            <div><span className={styles.arrow}>▸</span>C#</div>
-            <div><span className={styles.arrow}>▸</span>Js&Ts</div>
+            {languages.map(l => (
+              <div key={l}><span className={styles.arrow}>▸</span>{l}</div>
+            ))}
           </div>
-          <div className={styles.comment}># more to come</div>
+          <div className={styles.comment}>that's the list for now</div>
         </div>
       )}
 
       {skillTab === 'frameworks' && (
         <div>
-          <div className={styles.prompt}>xelph@dev:~$ cat frameworks.txt</div>
+          <div className={styles.prompt}>libraries i work with</div>
           <div className={styles.list}>
             {frameworks.map((fw, i) => (
               <div key={i}><span className={styles.arrow}>▸</span>{fw}</div>
@@ -226,8 +243,8 @@ function ProjectsSection() {
   if (loading) {
     return (
       <div>
-        <div className={styles.prompt}>xelph@dev:~$ ls projects/</div>
-        <div className={styles.empty}>loading<span className={styles.blink}>_</span></div>
+        <div className={styles.prompt}>projects</div>
+        <div className={styles.empty}>loading…</div>
       </div>
     )
   }
@@ -235,15 +252,15 @@ function ProjectsSection() {
   if (projects.length === 0) {
     return (
       <div>
-        <div className={styles.prompt}>xelph@dev:~$ ls projects/</div>
-        <div className={styles.empty}>nothing published yet <span className={styles.blink}>_</span></div>
+        <div className={styles.prompt}>projects</div>
+        <div className={styles.empty}>nothing here yet <span className={styles.blink}>_</span></div>
       </div>
     )
   }
 
   return (
     <div>
-      <div className={styles.prompt}>xelph@dev:~$ ls projects/</div>
+      <div className={styles.prompt}>projects</div>
       <div className={styles.projectsList}>
         {projects.map((project, i) => (
           <a key={i} href={project.url} target="_blank" rel="noopener noreferrer" className={styles.projectCard}>
@@ -282,8 +299,8 @@ function GuidesSection() {
   if (loading) {
     return (
       <div>
-        <div className={styles.prompt}>xelph@dev:~$ ls guides/ --writing</div>
-        <div className={styles.empty}>loading<span className={styles.blink}>_</span></div>
+        <div className={styles.prompt}>guides</div>
+        <div className={styles.empty}>loading…</div>
       </div>
     )
   }
@@ -291,15 +308,15 @@ function GuidesSection() {
   if (guides.length === 0) {
     return (
       <div>
-        <div className={styles.prompt}>xelph@dev:~$ ls guides/ --writing</div>
-        <div className={styles.empty}>Nothing published yet <span className={styles.blink}>_</span></div>
+        <div className={styles.prompt}>guides</div>
+        <div className={styles.empty}>nothing here yet <span className={styles.blink}>_</span></div>
       </div>
     )
   }
 
   return (
     <div>
-      <div className={styles.prompt}>xelph@dev:~$ ls guides/ --writing</div>
+      <div className={styles.prompt}>guides</div>
       <div className={styles.guidesList}>
         {guides.map((guide) => (
           <Link key={guide.slug} href={`/guides/${guide.slug}`} className={styles.guideCard}>
